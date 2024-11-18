@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать запись</title>
+</head>
+<body>
+    <h2>Редактировать запись в {{ table_name }}</h2>
+    <form action="{{ url_for('record.edit_record', table_name=table_name, record_id=record_id) }}" method="post">
+        {% for column, value in record.items() %}
+            {% if column != 'id' %}
+                <label for="{{ column }}">{{ column }}</label>
+                <input type="text" id="{{ column }}" name="{{ column }}" value="{{ value }}">
+            {% endif %}
+        {% endfor %}
+        <input type="submit" value="Сохранить">
+    </form>
+    <a href="{{ url_for('table.view_table', table_name=table_name) }}"><button>Назад к таблице</button></a>
+</body>
+</html>

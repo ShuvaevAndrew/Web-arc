@@ -1,0 +1,38 @@
+<div>
+    <div>
+        <h1>{{ table_name }}</h1>
+    </div>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    
+    <a href="{{ url_for('record.add_record', table_name=table_name) }}"><button>Add New Record</button></a>
+
+    <table border="1">
+        <thead>
+            <tr>
+                {% for column in columns %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+                {% if editing_enabled %}
+                    <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                <tr>
+                    {% for value in record %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                    {% if editing_enabled %}
+                        <td>
+                            <a href="{{ url_for('record.edit_record', table_name=table_name, record_id=record[0]) }}"><button>Edit</button></a>
+                            <form action="{{ url_for('record.delete_record', table_name=table_name, record_id=record[0]) }}" method="post">
+                                <button type="submit" class="delete-button" data-record-id="{{ record[0] }}">Delete</button>
+                            </form>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить запись</title>
+</head>
+<body>
+    <h2>Добавить запись в {{ table_name }}</h2>
+    <form action="{{ url_for('record.add_record', table_name=table_name) }}" method="post">
+        {% for column in columns %}
+            <label for="{{ column }}">{{ column }}</label>
+            <input type="text" id="{{ column }}" name="{{ column }}">
+        {% endfor %}
+        <input type="submit" value="Сохранить">
+    </form>
+    <a href="{{ url_for('table.view_table', table_name=table_name) }}"><button>Назад к таблице</button></a>
+</body>
+</html>

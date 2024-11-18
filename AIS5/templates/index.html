@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table List</title>
+</head>
+<body>
+    <h1>Table List</h1>
+    <ul>
+        {% for table_name in table_list %}
+            <li><a href="{{ url_for('view_table', table_name=table_name) }}">{{ table_name }}</a></li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('tables') }}"><button>Перейти к таблицам</button></a>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+    <title>{{ table_name }}</title>
+</head>
+
+<body>
+    <h2>{{ table_name }}</h2>
+    <table border="1">
+        {% for record in records %}
+        <tr>
+            {% for field in record %}
+            <td>{{ field }}</td>
+            {% endfor %}
+            <td>
+                <form id="delete_form_{{ record[0] }}" action="{{ url_for('delete_record', table_name=table_name, record_id=record[0]) }}" method="post">
+                    <input type="button" value="Удалить" onclick="confirmDelete({{ record[0] })">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <form action="{{ url_for('add_record', table_name=table_name) }}" method="get">
+        <input type="submit" value="Добавить новую запись">
+    </form>
+    <br>
+    <a href="{{ url_for('tables') }}"><button>Перейти к таблицам</button></a>
+
+    <script>
+        function confirmDelete(recordId) {
+            if (confirm("Вы уверены, что хотите удалить эту запись?")) {
+                document.getElementById("delete_form_" + recordId).submit();
+            }
+        }
+    </script>
+</body>
+
+</html>
